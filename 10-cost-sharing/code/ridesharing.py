@@ -136,9 +136,11 @@ def shapley_values_efficient(road_graph:DiGraph, path:list):
 			logger.info("Calculate Shapley-values for sub-problem with only d[%d,%d] (= %f):", i, k, d_i_k)
 			logger.info("  Player %d adds d[%d,%d] whenever %d is second and %d is first among %d,...,%d, which happens in 1/(%d-%d+1)/(%d-%d) of the orders.", i, i,k, i,k, i,k, k,i, k,i)
 			map_player_to_value[path[i]] += d_i_k / (k-i+1) / (k-i)
+			logger.info("  Player %d adds d[%d,%d] whenever %d is second and %d is first among %d,...,%d, which happens in 1/(%d-%d+1)/(%d-%d) of the orders.", k, i,k, i,k, i,k, k,i, k,i)
 			map_player_to_value[path[k]] += d_i_k / (k-i+1) / (k-i)
 			for j in range(i+1, k):                         # each player j with i<j<k removes d_i_k whenever he is first among i+1,...,k-1 that comes after i,k.
 				map_player_to_value[path[j]] -= d_i_k / (k-i+1) / (k-i) / (k-i-1) * 2
+				logger.info("  Player %d removes d[%d,%d] whenever %d,%d join first and he joins third among %d,...,%d.", j, i,k, i,k, i,k)
 	return map_player_to_value
 
 
