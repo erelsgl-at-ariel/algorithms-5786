@@ -5,8 +5,11 @@ Since: 2023-01
 """
 
 
-import networkx as nx
+import networkx as nx, numpy as np
 import cvxpy
+
+np.set_printoptions(legacy="1.25")
+
 
 e = cvxpy.Variable(9, integer=True)
 range_constraints = [x >= 0 for x in e]  + [x <= 1 for x in e]
